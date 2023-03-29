@@ -9,11 +9,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import static util.Endpoints.LOGIN_USER_ENDPOINT;
-import static util.Endpoints.REGISTER_USER_ENDPOINT;
 import static util.Endpoints.URL_ENDPOINT;
+import static util.Endpoints.USER_PATH;
 
 public class UserService {
-    private static final String REGISTER_USER = URL_ENDPOINT + REGISTER_USER_ENDPOINT;
+    private static final String REGISTER_USER = URL_ENDPOINT + USER_PATH;
     private static final String LOGIN_USER = URL_ENDPOINT + LOGIN_USER_ENDPOINT;
     private static final String USER_ID_KEY = "userId";
     private static final String MESSAGE_KEY = "message";

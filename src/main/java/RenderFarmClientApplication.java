@@ -4,8 +4,8 @@ import service.UserService;
 import java.util.Scanner;
 
 public class RenderFarmClientApplication {
-    public static final String REGISTRATION = "registration";
-    public static final String LOGIN = "login";
+    public static final String REGISTRATION = "signup";
+    public static final String LOGIN = "signin";
     public static final String HELP = "help";
     public static final String ADD_TASK = "add";
     public static final String GET_ALL_TASKS = "all";
@@ -14,16 +14,20 @@ public class RenderFarmClientApplication {
     public static void main(String[] args) {
         String userId = "0";
         try {
-            System.out.println("Hello! You're on Render Farm prototype!\n" +
-                    "Haven't registered yet?\n" +
-                    "Type \"" + REGISTRATION + "\" - for registration in Render Farm\n" +
-                    "Have account?\n" +
-                    "Type \"" + LOGIN + "\"\n" +
-                    "Or type \"" + HELP +"\" for more information.");
+            System.out.printf("""
+                    Hello! You're on Render Farm prototype!
+                    Haven't registered yet?
+                    Type "%s" - for registration in Render Farm
+                    Have account?
+                    Type "%s"
+                    Or type "%s" for more information.%n""",
+                    REGISTRATION,
+                    LOGIN,
+                    HELP);
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 String command = scanner.nextLine();
-                if (command.equalsIgnoreCase(REGISTRATION)) {
+                if (REGISTRATION.equalsIgnoreCase(command)) {
                     System.out.println("Enter username: ");
                     String username = scanner.nextLine();
                     System.out.println("Enter password: ");
@@ -36,27 +40,27 @@ public class RenderFarmClientApplication {
                     }
                     UserService.registerUser(username, password);
                 }
-                if (command.equalsIgnoreCase(LOGIN)) {
+                if (LOGIN.equalsIgnoreCase(command)) {
                     System.out.println("Enter username: ");
                     String username = scanner.nextLine();
                     System.out.println("Enter password: ");
                     String password = scanner.nextLine();
                     userId = String.valueOf(UserService.loginUser(username, password));
                 }
-                if (command.equalsIgnoreCase(ADD_TASK)) {
+                if (ADD_TASK.equalsIgnoreCase(command)) {
                     System.out.println("Enter title of the task: ");
                     String title = scanner.nextLine();
                     TaskService.addTask(userId, title);
                 }
-                if (command.equalsIgnoreCase(GET_ALL_TASKS)) {
+                if (GET_ALL_TASKS.equalsIgnoreCase(command)) {
                     TaskService.getAllTasks(userId);
                 }
-                if (command.equalsIgnoreCase(GET_HISTORY_OF_TASK)) {
+                if (GET_HISTORY_OF_TASK.equalsIgnoreCase(command)) {
                     System.out.println("Which task would you like to check. Press id:");
                     String taskId = scanner.nextLine();
                     TaskService.getTask(userId, taskId);
                 }
-                if (command.equalsIgnoreCase(HELP)) {
+                if (HELP.equalsIgnoreCase(command)) {
                     System.out.println(
                             REGISTRATION + " - registration in Render Farm\n" +
                             LOGIN + " - login in Render Farm\n" +
@@ -64,6 +68,7 @@ public class RenderFarmClientApplication {
                             GET_ALL_TASKS + " - get all tasks\n" +
                             GET_HISTORY_OF_TASK + " - get history of changing status of the task");
                 }
+                // TODO exit method
 
             }
 

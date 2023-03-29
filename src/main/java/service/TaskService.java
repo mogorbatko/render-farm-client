@@ -9,18 +9,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import static util.Endpoints.ADD_TASK_ENDPOINT;
-import static util.Endpoints.ALL_TASKS_ENDPOINT;
-import static util.Endpoints.TASK_ID_QUERY_PARAM;
 import static util.Endpoints.TASK_PATH;
 import static util.Endpoints.URL_ENDPOINT;
 
 public class TaskService {
-    private static final String ADD_TASK = URL_ENDPOINT + ADD_TASK_ENDPOINT;
-    private static final String GET_ALL_TASKS = URL_ENDPOINT + ALL_TASKS_ENDPOINT;
-    private static final String GET_TASK = URL_ENDPOINT + TASK_PATH + TASK_ID_QUERY_PARAM;
-
-    private static final String USER_HEADER = "User";
+    private static final String TASKS_ENDPOINT = URL_ENDPOINT + TASK_PATH;
+    private static final String USER_HEADER = "X-User";
     private static final String TASK_ID_KEY = "id";
     private static final String STATUS_KEY = "status";
     private static final String TITLE_KEY = "title";
@@ -39,7 +33,7 @@ public class TaskService {
         requestJson.put(TITLE_KEY, title);
         String requestBody = requestJson.toString();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(ADD_TASK))
+                .uri(URI.create(TASKS_ENDPOINT))
                 .header("Content-Type", "application/json")
                 .header(USER_HEADER, userId)
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
@@ -51,7 +45,7 @@ public class TaskService {
 
     public static void getAllTasks(String userId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(GET_ALL_TASKS))
+                .uri(URI.create(TASKS_ENDPOINT))
                 .header("Content-Type", "application/json")
                 .header(USER_HEADER, userId)
                 .GET()
@@ -77,7 +71,7 @@ public class TaskService {
     public static void getTask(String userId, String taskId) throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(GET_TASK + taskId))
+                .uri(URI.create(TASKS_ENDPOINT + "/" + taskId))
                 .header("Content-Type", "application/json")
                 .header(USER_HEADER, userId)
                 .GET()
