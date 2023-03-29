@@ -80,7 +80,7 @@ public class TaskService {
         int httpStatus = response.statusCode();
         String responseBody = response.body();
         JSONObject responseJson = new JSONObject(responseBody);
-        if (httpStatus == 200) {
+        if (httpStatus == 200 & !responseJson.isNull(TASK_KEY)) {
             JSONObject taskJson = responseJson.getJSONObject(TASK_KEY);
             int id = taskJson.getInt(TASK_ID_KEY);
             String status = taskJson.getString(STATUS_KEY);
