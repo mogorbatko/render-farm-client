@@ -7,6 +7,7 @@ public class RenderFarmClientApplication {
     public static final String REGISTRATION = "signup";
     public static final String LOGIN = "signin";
     public static final String HELP = "help";
+    public static final String EXIT = "exit";
     public static final String ADD_TASK = "add";
     public static final String GET_ALL_TASKS = "all";
     public static final String GET_HISTORY_OF_TASK = "history";
@@ -15,12 +16,12 @@ public class RenderFarmClientApplication {
         String userId = "0";
         try {
             System.out.printf("""
-                    Hello! You're on Render Farm prototype!
-                    Haven't registered yet?
-                    Type "%s" - for registration in Render Farm
-                    Have account?
-                    Type "%s"
-                    Or type "%s" for more information.%n""",
+                            Hello! You're on Render Farm prototype!
+                            Haven't registered yet?
+                            Type "%s" - for registration in Render Farm
+                            Have account?
+                            Type "%s"
+                            Or type "%s" for more information.%n""",
                     REGISTRATION,
                     LOGIN,
                     HELP);
@@ -68,8 +69,10 @@ public class RenderFarmClientApplication {
                             GET_ALL_TASKS + " - get all tasks\n" +
                             GET_HISTORY_OF_TASK + " - get history of changing status of the task");
                 }
-                // TODO exit method
-
+                if (EXIT.equalsIgnoreCase(command)) {
+                    System.out.println("Bye!");
+                    break;
+                }
             }
 
         } catch (Exception e) {
